@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct BFSIterator<V: VertexProtocol, E: EdgeProtocol> : IteratorProtocol {
+public struct BFS<V: VertexProtocol, E: EdgeProtocol> : Sequence, IteratorProtocol {
     
     public init(graph: Graph<V, E>, start: V) {
         self.graph = graph
@@ -36,19 +36,4 @@ public struct BFSIterator<V: VertexProtocol, E: EdgeProtocol> : IteratorProtocol
     
     var visited = Set<V>()
     var queue = Queue<Node<V, E>>()
-}
-
-public struct BFS<V: VertexProtocol, E: EdgeProtocol> : Sequence {
-    
-    private let graph: Graph<V, E>
-    private let start: V
-    
-    public init(graph: Graph<V, E>, start: V) {
-        self.graph = graph
-        self.start = start
-    }
-    
-    public func makeIterator() -> BFSIterator<V, E> {
-        return BFSIterator(graph: graph, start: start)
-    }
 }

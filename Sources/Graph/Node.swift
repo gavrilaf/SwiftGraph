@@ -18,22 +18,15 @@ public protocol EdgeProtocol {
 
 // MARK:
 
-public struct AdjacentIterator<V: VertexProtocol, E: EdgeProtocol>: IteratorProtocol {
-    var it: IndexingIterator<Array<Edge<V, E>>>
-    
-    init(_ edges: [Edge<V, E>]) { it = edges.makeIterator() }
-    
+public struct AdjacentSequence<V: VertexProtocol, E: EdgeProtocol>: Sequence, IteratorProtocol {
     public mutating func next() -> V? {
         return it.next()?.end.vertex
     }
-}
-
-public struct AdjacentSequence<V: VertexProtocol, E: EdgeProtocol>: Sequence {
-    let edges: [Edge<V, E>]
     
-    public func makeIterator() -> AdjacentIterator<V, E> {
-        return AdjacentIterator(edges)
-    }
+    // 
+    init(_ edges: [Edge<V, E>]) { it = edges.makeIterator() }
+    
+    var it: IndexingIterator<Array<Edge<V, E>>>
 }
 
 public class Node<V: VertexProtocol, E: EdgeProtocol>: Hashable, Equatable {
@@ -54,7 +47,7 @@ public class Node<V: VertexProtocol, E: EdgeProtocol>: Hashable, Equatable {
 
     // MARK:
     public var adjacent: AdjacentSequence<V, E> {
-        return AdjacentSequence(edges: edges)
+        return AdjacentSequence(edges)
     }
     
     // MARK:

@@ -19,7 +19,7 @@ public struct TopologicalSort<V: VertexProtocol, E: EdgeProtocol> {
     }
     
     func sort() {
-        
+    //    for graph
     
     }
 }

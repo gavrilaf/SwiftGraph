@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct DFSIterator<V: VertexProtocol, E: EdgeProtocol> : IteratorProtocol {
+public struct DFS<V: VertexProtocol, E: EdgeProtocol> : Sequence, IteratorProtocol {
     
     public init(graph: Graph<V, E>, start: V) {
         self.graph = graph
@@ -41,19 +41,4 @@ public struct DFSIterator<V: VertexProtocol, E: EdgeProtocol> : IteratorProtocol
     
     var visited = Set<V>()
     var stack = Stack<Node<V, E>>()
-}
-
-public struct DFS<V: VertexProtocol, E: EdgeProtocol> : Sequence {
-    
-    private let graph: Graph<V, E>
-    private let start: V
-    
-    public init(graph: Graph<V, E>, start: V) {
-        self.graph = graph
-        self.start = start
-    }
-    
-    public func makeIterator() -> DFSIterator<V, E> {
-        return DFSIterator(graph: graph, start: start)
-    }
 }

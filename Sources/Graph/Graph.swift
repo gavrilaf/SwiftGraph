@@ -33,6 +33,8 @@ open class Graph<V: VertexProtocol, E: EdgeProtocol> {
         start.addAdj(node: end, edge: edge)
     }
     
+    //public var nodes
+    
     var nodes = Dictionary<Int, Node<V, E>>()
 }
 
