@@ -18,7 +18,7 @@ open class Graph<V: VertexProtocol, E: EdgeProtocol> {
     
     open func add<S>(vertices: S) where S : Sequence, S.Iterator.Element == V {
         vertices.forEach {
-            let node = Node($0)
+            let node = Node<V, E>(vertex: $0)
             self.nodes[node.hashValue] = node
         }
     }
@@ -30,30 +30,10 @@ open class Graph<V: VertexProtocol, E: EdgeProtocol> {
     open func add(edge: E, from: V, to: V) {
         let start = nodes[from.hashValue]!
         let end = nodes[to.hashValue]!
-        start.edges.append(Edge(edge: edge, end: end))
+        start.addAdj(node: end, edge: edge)
     }
     
-    
-    struct Edge {
-        var edge: E
-        var end: Node
-    }
-    
-    class Node: Hashable, Equatable {
-        init(_ vertex: V) { self.vertex = vertex }
-        
-        let vertex: V
-        var edges = [Edge]()
-        
-        var hashValue: Int { return vertex.hashValue }
-        
-        static func ==(lhs: Node, rhs: Node) -> Bool {
-            return lhs.vertex == rhs.vertex
-        }
-
-    }
-    
-    var nodes = Dictionary<Int, Node>()
+    var nodes = Dictionary<Int, Node<V, E>>()
 }
 
 extension Graph {

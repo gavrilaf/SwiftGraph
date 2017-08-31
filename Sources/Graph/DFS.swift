@@ -40,7 +40,7 @@ public struct DFSIterator<V: VertexProtocol, E: EdgeProtocol> : IteratorProtocol
     let graph: Graph<V, E>
     
     var visited = Set<V>()
-    var stack = Stack<Graph<V, E>.Node>()
+    var stack = Stack<Node<V, E>>()
 }
 
 public struct DFS<V: VertexProtocol, E: EdgeProtocol> : Sequence {

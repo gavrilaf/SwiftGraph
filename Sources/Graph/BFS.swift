@@ -35,7 +35,7 @@ public struct BFSIterator<V: VertexProtocol, E: EdgeProtocol> : IteratorProtocol
     let graph: Graph<V, E>
     
     var visited = Set<V>()
-    var queue = Queue<Graph<V, E>.Node>()
+    var queue = Queue<Node<V, E>>()
 }
 
 public struct BFS<V: VertexProtocol, E: EdgeProtocol> : Sequence {
