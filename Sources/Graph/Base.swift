@@ -7,3 +7,11 @@
 //
 
 import Foundation
+
+public protocol VertexProtocol: Hashable, Equatable {
+    var id: String { get }
+}
+
+public protocol EdgeProtocol {
+    var weight: Int { get }
+}

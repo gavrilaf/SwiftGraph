@@ -8,35 +8,44 @@
 
 import Foundation
 
-public protocol VertexProtocol: Hashable, Equatable {
-    var id: String { get }
-}
+// MARK:
 
-public protocol EdgeProtocol {
-    var weight: Int { get }
-}
+
 
 // MARK:
 
-public struct AdjacentSequence<V: VertexProtocol, E: EdgeProtocol>: Sequence, IteratorProtocol {
-    public mutating func next() -> V? {
+/*public struct NodesSequence<V: VertexProtocol, E: EdgeProtocol>: Sequence, IteratorProtocol {
+    public mutating func next() -> Node<V, E>? {
         return it.next()?.end.vertex
     }
     
-    // 
+    //
     init(_ edges: [Edge<V, E>]) { it = edges.makeIterator() }
-    
     var it: IndexingIterator<Array<Edge<V, E>>>
-}
+}*/
+
+
+// MARK:
 
 public class Node<V: VertexProtocol, E: EdgeProtocol>: Hashable, Equatable {
     
+    // MARK:
+    public struct AdjacentSequence: Sequence, IteratorProtocol {
+        public mutating func next() -> Node<V, E>? {
+            return it.next()?.end
+        }
+        
+        //
+        init(_ edges: [Edge]) { it = edges.makeIterator() }
+        var it: IndexingIterator<Array<Edge>>
+    }
+
+    // MARK:
     public init(vertex: V) {
         self.vertex = vertex
     }
     
     // MARK:
-    
     public var hashValue: Int {
         return vertex.hashValue
     }
@@ -46,7 +55,7 @@ public class Node<V: VertexProtocol, E: EdgeProtocol>: Hashable, Equatable {
     }
 
     // MARK:
-    public var adjacent: AdjacentSequence<V, E> {
+    public var adjacent: Node<V, E>.AdjacentSequence {
         return AdjacentSequence(edges)
     }
     
@@ -56,28 +65,15 @@ public class Node<V: VertexProtocol, E: EdgeProtocol>: Hashable, Equatable {
     }
     
     // MARK:
+    struct Edge {
+        var edge: E
+        var end: Node
+    }
     
+    // MARK:
     let vertex: V
-    var edges = [Edge<V, E>]()
-}
-
-struct Edge<V: VertexProtocol, E: EdgeProtocol> {
-    var edge: E
-    var end: Node<V, E>
+    var edges = [Edge]()
 }
 
 
-// MARK:
-
-extension Int: VertexProtocol {
-    public var id: String { return String(self) }
-}
-
-extension String: VertexProtocol {
-    public var id: String { return self }
-}
-
-extension Int: EdgeProtocol {
-    public var weight: Int { return self }
-}
 

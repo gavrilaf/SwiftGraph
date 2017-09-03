@@ -18,7 +18,7 @@ open class Graph<V: VertexProtocol, E: EdgeProtocol> {
     
     open func add<S>(vertices: S) where S : Sequence, S.Iterator.Element == V {
         vertices.forEach {
-            let node = Node<V, E>(vertex: $0)
+            let node = NodeT(vertex: $0)
             self.nodes[node.hashValue] = node
         }
     }
@@ -33,10 +33,34 @@ open class Graph<V: VertexProtocol, E: EdgeProtocol> {
         start.addAdj(node: end, edge: edge)
     }
     
-    //public var nodes
+    // MARK:
+    /*public struct NodesSequence: Sequence, IteratorProtocol {
+        public mutating func next() -> Node<V, E>? {
+            return it.next()
+        }
+        
+        //
+        init(_ it: NodesDictLazyIt) { self.it = it }
+        var it: NodesDictLazyIt
+    }*/
     
-    var nodes = Dictionary<Int, Node<V, E>>()
+    // MARK:
+    typealias NodeT = Node<V, E>
+    typealias NodesDict = Dictionary<Int, NodeT>
+    //typealias NodesDictLazyIt = LazyMapIterator<NodesDict.Iterator, NodeT>
+    
+    var nodes = NodesDict()
 }
+
+// MARK:
+
+extension Graph {
+    public var allNodes: Set<Node<V, E>> {
+        return Set(nodes.values)
+    }
+}
+
+// MARK:
 
 extension Graph {
     public func bfs(start: V) -> BFS<V, E> {
@@ -49,28 +73,5 @@ extension Graph {
 }
 
 
-
-
-public class ConstEdgeGraph<V: VertexProtocol> : Graph<V, Int> {
-    
-    public override init() {
-        super.init()
-    }
-    
-    public override init<S>(vertices: S) where S : Sequence, S.Iterator.Element == V {
-        super.init(vertices: vertices)
-    }
-    
-    public init<S, R>(vertices: S, edges: R) where S: Sequence, R: Sequence, S.Iterator.Element == V, R.Iterator.Element == (V, V) {
-        super.init(vertices: vertices)
-        add(edges: edges)
-    }
-    
-    public func add<R>(edges: R) where R: Sequence, R.Iterator.Element == (V, V) {
-        edges.forEach {
-            self.add(edge: 1, from: $0.0, to: $0.1)
-        }
-    }
-}
 
 

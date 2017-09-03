@@ -9,17 +9,50 @@
 import Foundation
 
 
-public struct TopologicalSort<V: VertexProtocol, E: EdgeProtocol> {
+public func topologicalSort<V: VertexProtocol, E: EdgeProtocol>(graph: Graph<V, E>) -> [V] {
+    var sorted = [V]()
     
-    let graph: Graph<V, E>
-    let visited = Set<V>()
+    var unmarked = graph.allNodes
+    var tempMarks = Set<Node<V, E>>()
     
-    public init(graph: Graph<V, E>) {
-        self.graph = graph
+    var cycleFound = false
+    
+    /**
+    if n has a permanent mark then return
+    if n has a temporary mark then stop (not a DAG)
+    if n is not marked (i.e. has not been visited yet) then
+        mark n temporarily
+        for each node m with an edge from n to m do
+            visit(m)
+        mark n permanently
+        add n to head of L
+    **/
+    
+    func visit(node: Node<V, E>) {
+        guard !cycleFound else { return }
+        
+        guard unmarked.contains(node) else { return }
+        
+        guard !tempMarks.contains(node) else {
+            cycleFound = true
+            return
+        }
+        
+        tempMarks.insert(node)
+        
+        node.adjacent.forEach {
+            visit(node: $0)
+        }
+        
+        tempMarks.remove(node)
+        unmarked.remove(node)
+        
+        sorted.append(node.vertex)
     }
     
-    func sort() {
-    //    for graph
-    
+    while let node = unmarked.first {
+        visit(node: node)
     }
+    
+    return sorted.reversed()
 }
