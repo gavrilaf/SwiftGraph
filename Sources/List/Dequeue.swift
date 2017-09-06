@@ -1,6 +1,6 @@
 //
-//  DequeueList.swift
-//  Reviro
+//  Dequeue.swift
+//  SwiftGraph
 //
 //  Created by Eugen Fedchenko on 4/17/17.
 //
@@ -8,6 +8,7 @@
 
 import Foundation
 
+// MARK:
 public struct Dequeue<E> {
     
     public init() {
@@ -16,8 +17,8 @@ public struct Dequeue<E> {
         nilNode.prev = nilNode
     }
     
-    
-    class Node<E> {
+    // MARK: Private section
+    fileprivate class Node<E> {
         var value: E?
         var next: Node?
         weak var prev: Node?
@@ -31,9 +32,10 @@ public struct Dequeue<E> {
         }
     }
     
-    let nilNode: Node<E>
+    fileprivate let nilNode: Node<E>
 }
 
+// MARK:
 extension Dequeue {
     
     public var isEmpty: Bool {
@@ -90,6 +92,7 @@ extension Dequeue {
     }
 }
 
+// MARK:
 extension Dequeue: CustomStringConvertible {
     public var description: String {
         var s = "Dequeue["
