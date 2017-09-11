@@ -18,6 +18,18 @@ class TopologicalSortTests: XCTestCase {
         return gr
     }()
     
+    
+    func testTopologicalAllSolutions() {
+        let gr: ConstEdgeGraph<Int> = {
+            return ConstEdgeGraph<Int>(vertices: [0, 1, 2, 3, 4, 5],
+                                       edges: [(5, 2), (5, 0), (4, 0), (4, 1), (2, 3), (3, 1)])
+        }()
+        
+        
+        let solutions = topologicalSortFindAll(graph: gr)
+        print(solutions)
+    }
+    
     func testTopologicalSort1() {
         let gr: ConstEdgeGraph<Int> = {
             return ConstEdgeGraph<Int>(vertices: [0, 1, 2, 3, 4, 5],
