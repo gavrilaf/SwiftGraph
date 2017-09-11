@@ -75,5 +75,11 @@ public class Node<V: VertexProtocol, E: EdgeProtocol>: Hashable, Equatable {
     var edges = [Edge]()
 }
 
+extension Node: CustomStringConvertible {
+    public var description: String {
+        return "Node(vertex: \(vertex))"
+    }
+}
+
 
 

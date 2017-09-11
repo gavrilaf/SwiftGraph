@@ -1,6 +1,6 @@
 import XCTest
-@testable import SwiftGraphTests
+@testable import WirexUtilsTests
 
 XCTMain([
-    testCase(SwiftGraphTests.allTests),
+    testCase(WirexUtilsTests.allTests),
 ])

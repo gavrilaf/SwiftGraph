@@ -13,6 +13,7 @@ public func topologicalSort<V: VertexProtocol, E: EdgeProtocol>(graph: Graph<V, 
     var sorted = [V]()
     
     var unmarked = graph.allNodes
+    print(unmarked)
     var tempMarks = Set<Node<V, E>>()
     
     var cycleFound = false
@@ -54,5 +55,5 @@ public func topologicalSort<V: VertexProtocol, E: EdgeProtocol>(graph: Graph<V, 
         visit(node: node)
     }
     
-    return sorted.reversed()
+    return cycleFound ? [] : sorted.reversed()
 }
