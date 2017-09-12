@@ -36,33 +36,6 @@ public func topologicalSortFindAll<V: VertexProtocol, E: EdgeProtocol>(graph: Gr
     func findSolutions() {
         var flag = false
     
-        /*for (int i = 0; i < V; i++)
-        {
-            //  If indegree is 0 and not yet visited then
-            //  only choose that vertex
-            if (indegree[i] == 0 && !visited[i])
-            {
-                //  reducing indegree of adjacent vertices
-                list<int>:: iterator j;
-                for (j = adj[i].begin(); j != adj[i].end(); j++)
-                indegree[*j]--;
-                
-                //  including in result
-                res.push_back(i);
-                visited[i] = true;
-                alltopologicalSortUtil(res, visited);
-                
-                // resetting visited, res and indegree for
-                // backtracking
-                visited[i] = false;
-                res.erase(res.end() - 1);
-                for (j = adj[i].begin(); j != adj[i].end(); j++)
-                indegree[*j]++;
-                
-                flag = true;
-            }
-        }*/
-        
         for (node, indegree) in countedNodes {
             if indegree == 0 && !visited.contains(node) {
                 node.adjacent.forEach { countedNodes[$0] = (countedNodes[$0] ?? 0) - 1 }
@@ -73,21 +46,20 @@ public func topologicalSortFindAll<V: VertexProtocol, E: EdgeProtocol>(graph: Gr
                 findSolutions()
                 
                 visited.remove(node)
-                _ = solution.dropLast()
-                node.adjacent.forEach { countedNodes[$0] = (countedNodes[$0] ?? 0) + 1 }
                 
+                node.adjacent.forEach { countedNodes[$0] = (countedNodes[$0] ?? 0) + 1 }
+                solution.remove(at: solution.count - 1)
                 flag = true
             }
         }
-        
         
         if !flag && !solution.isEmpty {
             result.append(solution)
         }
     }
     
+    findSolutions()
     return result
-
 }
 
 // MARK: Find one solution
