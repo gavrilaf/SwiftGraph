@@ -9,7 +9,6 @@
 import Foundation
 
 public protocol VertexProtocol: Hashable, Equatable {
-    var id: String { get }
 }
 
 public protocol EdgeProtocol {

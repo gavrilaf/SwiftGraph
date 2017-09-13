@@ -10,23 +10,6 @@ import Foundation
 
 // MARK:
 
-
-
-// MARK:
-
-/*public struct NodesSequence<V: VertexProtocol, E: EdgeProtocol>: Sequence, IteratorProtocol {
-    public mutating func next() -> Node<V, E>? {
-        return it.next()?.end.vertex
-    }
-    
-    //
-    init(_ edges: [Edge<V, E>]) { it = edges.makeIterator() }
-    var it: IndexingIterator<Array<Edge<V, E>>>
-}*/
-
-
-// MARK:
-
 public class Node<V: VertexProtocol, E: EdgeProtocol>: Hashable, Equatable {
     
     // MARK:
@@ -35,7 +18,6 @@ public class Node<V: VertexProtocol, E: EdgeProtocol>: Hashable, Equatable {
             return it.next()?.end
         }
         
-        //
         init(_ edges: [Edge]) { it = edges.makeIterator() }
         var it: IndexingIterator<Array<Edge>>
     }

@@ -8,59 +8,8 @@
 
 import Foundation
 
-// MARK:
-public func topologicalSortFindAll<V: VertexProtocol, E: EdgeProtocol>(graph: Graph<V, E>) -> [[V]] {
-    typealias NodeT = Node<V, E>
-    var countedNodes = [NodeT : Int]()
-    
-    let allNodes = graph.allNodes
-    allNodes.forEach { countedNodes[$0] = 0 }
-    allNodes.forEach {
-        $0.adjacent.forEach {
-            countedNodes[$0] = (countedNodes[$0] ?? 0) + 1
-        }
-    }
-    
-    var result = [[V]]()
-    var solution = [V]()
-    var visited = Set<NodeT>()
-    
-    /**
-     * Initialize all vertices as unvisited.
-     * Now choose vertex which is unvisited and has zero indegree and decrease indegree
-        of all those vertices by 1 (corresponding to removing edges) now add this vertex
-        to result and call the recursive function again and backtrack.
-     * After returning from function reset values of visited, result and indegree for enumeration
-        of other possibilities.
-     **/
-    func findSolutions() {
-        var flag = false
-    
-        for (node, indegree) in countedNodes {
-            if indegree == 0 && !visited.contains(node) {
-                node.adjacent.forEach { countedNodes[$0] = (countedNodes[$0] ?? 0) - 1 }
-            
-                solution.append(node.vertex)
-                visited.insert(node)
-                
-                findSolutions()
-                
-                visited.remove(node)
-                
-                node.adjacent.forEach { countedNodes[$0] = (countedNodes[$0] ?? 0) + 1 }
-                solution.remove(at: solution.count - 1)
-                flag = true
-            }
-        }
-        
-        if !flag && !solution.isEmpty {
-            result.append(solution)
-        }
-    }
-    
-    findSolutions()
-    return result
-}
+// http://www.geeksforgeeks.org/topological-sorting/
+// http://www.geeksforgeeks.org/all-topological-sorts-of-a-directed-acyclic-graph/
 
 // MARK: Find one solution
 public func topologicalSort<V: VertexProtocol, E: EdgeProtocol>(graph: Graph<V, E>) -> [V] {
@@ -111,3 +60,58 @@ public func topologicalSort<V: VertexProtocol, E: EdgeProtocol>(graph: Graph<V, 
     
     return cycleFound ? [] : sorted.reversed()
 }
+
+// MARK: Find all solutions
+public func topologicalSortFindAll<V: VertexProtocol, E: EdgeProtocol>(graph: Graph<V, E>) -> [[V]] {
+    typealias NodeT = Node<V, E>
+    var countedNodes = [NodeT : Int]()
+    
+    let allNodes = graph.allNodes
+    allNodes.forEach { countedNodes[$0] = 0 }
+    allNodes.forEach {
+        $0.adjacent.forEach {
+            countedNodes[$0] = (countedNodes[$0] ?? 0) + 1
+        }
+    }
+    
+    var result = [[V]]()
+    var solution = [V]()
+    var visited = Set<NodeT>()
+    
+    /**
+     * Initialize all vertices as unvisited.
+     * Now choose vertex which is unvisited and has zero indegree and decrease indegree
+     of all those vertices by 1 (corresponding to removing edges) now add this vertex
+     to result and call the recursive function again and backtrack.
+     * After returning from function reset values of visited, result and indegree for enumeration
+     of other possibilities.
+     **/
+    func findSolutions() {
+        var flag = false
+        
+        for (node, indegree) in countedNodes {
+            if indegree == 0 && !visited.contains(node) {
+                node.adjacent.forEach { countedNodes[$0] = (countedNodes[$0] ?? 0) - 1 }
+                
+                solution.append(node.vertex)
+                visited.insert(node)
+                
+                findSolutions()
+                
+                visited.remove(node)
+                
+                node.adjacent.forEach { countedNodes[$0] = (countedNodes[$0] ?? 0) + 1 }
+                solution.remove(at: solution.count - 1)
+                flag = true
+            }
+        }
+        
+        if !flag && !solution.isEmpty {
+            result.append(solution)
+        }
+    }
+    
+    findSolutions()
+    return result
+}
+

@@ -34,20 +34,8 @@ open class Graph<V: VertexProtocol, E: EdgeProtocol> {
     }
     
     // MARK:
-    /*public struct NodesSequence: Sequence, IteratorProtocol {
-        public mutating func next() -> Node<V, E>? {
-            return it.next()
-        }
-        
-        //
-        init(_ it: NodesDictLazyIt) { self.it = it }
-        var it: NodesDictLazyIt
-    }*/
-    
-    // MARK:
     typealias NodeT = Node<V, E>
     typealias NodesDict = Dictionary<Int, NodeT>
-    //typealias NodesDictLazyIt = LazyMapIterator<NodesDict.Iterator, NodeT>
     
     var nodes = NodesDict()
 }

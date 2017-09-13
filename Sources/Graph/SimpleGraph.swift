@@ -10,17 +10,13 @@ import Foundation
 
 // MARK:
 
-extension Int: VertexProtocol {
-    public var id: String { return String(self) }
-}
-
-extension String: VertexProtocol {
-    public var id: String { return self }
-}
+extension Int: VertexProtocol {}
+extension String: VertexProtocol {}
 
 extension Int: EdgeProtocol {
     public var weight: Int { return self }
 }
+
 
 // MARK:
 
