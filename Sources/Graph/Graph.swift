@@ -43,8 +43,16 @@ open class Graph<V: VertexProtocol, E: EdgeProtocol> {
 // MARK:
 
 extension Graph {
+    public var first: Node<V, E>? {
+        return nodes.first?.value
+    }
+    
     public var allNodes: Set<Node<V, E>> {
         return Set(nodes.values)
+    }
+    
+    public func node(byVertex vertex: V) -> Node<V, E>? {
+        return nodes[vertex.hashValue]
     }
 }
 
