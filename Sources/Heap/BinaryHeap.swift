@@ -37,7 +37,7 @@ public final class BinaryHeap<E> {
         guard let p = top else { return nil }
         
         if count > 1 {
-            swap(&elements[0], &elements[count-1])
+            elements.swapAt(0, count-1)
             count -= 1
             shiftDown(0)
         } else {

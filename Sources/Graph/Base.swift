@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol VertexProtocol: Hashable, Equatable {
+public protocol VertexProtocol: Hashable {
 }
 
 public protocol EdgeProtocol {

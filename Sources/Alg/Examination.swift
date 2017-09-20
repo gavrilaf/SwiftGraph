@@ -16,7 +16,7 @@ enum NodeColor {
 
 
 /// Is Directed Acyclic Graph? True if graph does not contain cycles
-public func isDAG<V: VertexProtocol, E: EdgeProtocol>(graph: Graph<V, E>) -> Bool {
+public func isDAG<V, E>(graph: Graph<V, E>) -> Bool {
     var colors = [V: NodeColor]()
     
     func findCycle(_ node: Node<V, E>) -> Bool {

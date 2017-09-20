@@ -12,7 +12,7 @@ import Foundation
 // http://www.geeksforgeeks.org/all-topological-sorts-of-a-directed-acyclic-graph/
 
 // MARK: Find one solution
-public func topologicalSort<V: VertexProtocol, E: EdgeProtocol>(graph: Graph<V, E>) -> [V] {
+public func topologicalSort<V, E>(graph: Graph<V, E>) -> [V] {
     var sorted = [V]()
     
     var unmarked = graph.allNodes
@@ -62,7 +62,7 @@ public func topologicalSort<V: VertexProtocol, E: EdgeProtocol>(graph: Graph<V, 
 }
 
 // MARK: Find all solutions
-public func topologicalSortFindAll<V: VertexProtocol, E: EdgeProtocol>(graph: Graph<V, E>) -> [[V]] {
+public func topologicalSortFindAll<V, E>(graph: Graph<V, E>) -> [[V]] {
     typealias NodeT = Node<V, E>
     var countedNodes = [NodeT : Int]()
     
