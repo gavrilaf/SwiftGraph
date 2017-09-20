@@ -9,7 +9,6 @@
 import Foundation
 
 // MARK:
-
 extension Int: VertexProtocol {}
 extension String: VertexProtocol {}
 
@@ -17,9 +16,7 @@ extension Int: EdgeProtocol {
     public var weight: Int { return self }
 }
 
-
 // MARK:
-
 public class ConstEdgeGraph<V: VertexProtocol> : Graph<V, Int> {
     
     public override init() {
