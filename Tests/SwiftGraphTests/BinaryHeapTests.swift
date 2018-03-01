@@ -103,7 +103,7 @@ class BinaryHeapTests: XCTestCase {
         XCTAssertTrue(checker.isOrdered)
     }
     
-    func testBinaryHeapPerformance() {
+    /*func testBinaryHeapPerformance() {
         let ar = Random.intArray(size: 100000)
         let pq = BinaryHeap<Int>(sort: { return $0 < $1 })
         
@@ -128,5 +128,5 @@ class BinaryHeapTests: XCTestCase {
             let pq = BinaryHeap<Int>(array: ar, sort: { return $0 < $1 })
             _ = pq.pop()
         }
-    }
+    }*/
 }

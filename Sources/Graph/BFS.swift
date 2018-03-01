@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct BFS<V: VertexProtocol, E: EdgeProtocol> : Sequence, IteratorProtocol {
+public class BFS<V: VertexProtocol, E: EdgeProtocol> : Sequence, IteratorProtocol {
     
     public init(graph: Graph<V, E>, start: V) {
         self.graph = graph
@@ -19,7 +19,7 @@ public struct BFS<V: VertexProtocol, E: EdgeProtocol> : Sequence, IteratorProtoc
         }
     }
     
-    public mutating func next() -> V? {
+    public func next() -> V? {
         guard let current = queue.dequeue() else { return nil }
         
         current.edges.forEach { (edge) in

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct DFS<V: VertexProtocol, E: EdgeProtocol> : Sequence, IteratorProtocol {
+public class DFS<V: VertexProtocol, E: EdgeProtocol> : Sequence, IteratorProtocol {
     
     public init(graph: Graph<V, E>, start: V) {
         self.graph = graph
@@ -18,7 +18,7 @@ public struct DFS<V: VertexProtocol, E: EdgeProtocol> : Sequence, IteratorProtoc
         }
     }
     
-    public mutating func next() -> V? {
+    public func next() -> V? {
         while let current = stack.pop() {
             if visited.contains(current.vertex) {
                 continue
